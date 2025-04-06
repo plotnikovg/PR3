@@ -5,3 +5,25 @@ services:
     ports:
       - '5000:5000'
     restart: always
+    environment:
+      - DB_MYSQL_HOST=db-mysql
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_USER=userlogin
+      - DB_MYSQL_PASSWORD=userpassword
+      - DB_MYSQL_DB=database
+    depends_on:
+      - db-mysql
+
+  db-mysql:
+    image: mysql:8.0 # Use official MySQL image
+    container_name: mysql_service
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_DATABASE: mydatabase        
+      MYSQL_USER: myuser                
+      MYSQL_PASSWORD: mypassword        
+    volumes:
+      - mysql_data:/var/lib/mysql 
+
+volumes:
+  mysql_data:
