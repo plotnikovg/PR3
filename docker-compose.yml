@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  web:
+  flask-app:
     build: .
     ports:
       - '5000:5000'
@@ -15,7 +15,7 @@ services:
       - db-mysql
 
   db-mysql:
-    image: mysql:8.0 # Use official MySQL image
+    image: mysql:8.0 
     container_name: mysql_service
     environment:
       MYSQL_ROOT_PASSWORD: myrootpassword
