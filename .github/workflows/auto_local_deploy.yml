@@ -1,0 +1,28 @@
+name: Deploy Locally on PC
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Job
+    runs-on: [self-hosted, windows, X64]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and Restart Docker Compose services
+        run: |
+          echo ">>> Building Docker image..."
+          docker-compose build flask-app
+
+          echo ">>> Stopping old containers..."
+          docker-compose down
+
+          echo ">>> Starting new containers..."
+          docker-compose up -d
+
+          echo ">>> Deployment finished!"
